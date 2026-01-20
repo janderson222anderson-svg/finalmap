@@ -136,7 +136,7 @@ const RoutingPanel = ({
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -300, opacity: 0 }}
           transition={{ type: "spring", damping: 25 }}
-          className="absolute my-32 left-2 sm:left-4 top-2 sm:top-4 w-[calc(100vw-1rem)] max-w-48 max-h-72 sm:w-72 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 z-20 max-h-[calc(100vh-6rem)] sm:max-h-[calc(100vh-8rem)] overflow-y-auto"
+          className="absolute my-32 left-2 sm:left-4 top-2 sm:top-4 w-[calc(100vw-1rem)] max-w-48 max-h-72 sm:w-72 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 z-20   overflow-y-auto"
         >
           {/* Panel Header */}
           <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-3 bg-primary text-white rounded-t-xl">
