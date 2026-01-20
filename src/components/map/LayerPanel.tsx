@@ -24,25 +24,25 @@ const LayerPanel = ({ show, activeStyle, onClose, onStyleChange }: LayerPanelPro
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          className="absolute left-12 sm:left-20 bottom-16 sm:bottom-20 z-10"
+          className="absolute left-16 sm:left-20 bottom-20 sm:bottom-20 z-10"
         >
-          <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200 p-2 sm:p-3 min-w-[160px] sm:min-w-[180px]">
-            <div className="flex items-center justify-between mb-2 sm:mb-3">
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
-                <span className="text-xs sm:text-sm font-semibold text-gray-700">Map Layers</span>
+          <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200 p-3 min-w-[180px] sm:min-w-[200px]">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <Layers className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold text-gray-700">Map Layers</span>
               </div>
               <button
                 onClick={onClose}
-                className="p-1 sm:p-1.5 hover:bg-gray-100 rounded-lg transition-colors group"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group min-h-[44px] min-w-[44px] flex items-center justify-center"
                 title="Close"
                 aria-label="Close layer panel"
               >
-                <X className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 group-hover:text-gray-600 group-hover:scale-110 transition-all" />
+                <X className="w-4 h-4 text-gray-400 group-hover:text-gray-600 group-hover:scale-110 transition-all" />
               </button>
             </div>
             
-            <div className="space-y-0.5 sm:space-y-1">
+            <div className="space-y-1">
               {(Object.keys(mapStyles) as MapStyle[]).map((style) => {
                 const isActive = activeStyle === style;
                 return (
@@ -52,36 +52,36 @@ const LayerPanel = ({ show, activeStyle, onClose, onStyleChange }: LayerPanelPro
                       onStyleChange(style);
                       onClose();
                     }}
-                    className={`w-full flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg text-left transition-all ${
+                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all min-h-[52px] touch-manipulation ${
                       isActive 
                         ? "bg-primary text-white" 
                         : "hover:bg-gray-50"
                     }`}
                   >
-                    <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center ${
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
                       isActive ? "bg-white/20" : "bg-gray-100"
                     }`}>
                       {style === "streets" && (
-                        <svg className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isActive ? "text-white" : "text-gray-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-4 h-4 ${isActive ? "text-white" : "text-gray-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                         </svg>
                       )}
                       {style === "satellite" && (
-                        <svg className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isActive ? "text-white" : "text-gray-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-4 h-4 ${isActive ? "text-white" : "text-gray-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       )}
                       {style === "terrain" && (
-                        <svg className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isActive ? "text-white" : "text-gray-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-4 h-4 ${isActive ? "text-white" : "text-gray-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                         </svg>
                       )}
                     </div>
-                    <span className={`text-xs sm:text-sm font-medium ${isActive ? "text-white" : "text-gray-700"}`}>
+                    <span className={`text-sm font-medium ${isActive ? "text-white" : "text-gray-700"}`}>
                       {mapStyles[style].name}
                     </span>
                     {isActive && (
-                      <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-auto text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-4 h-4 ml-auto text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     )}
@@ -90,8 +90,8 @@ const LayerPanel = ({ show, activeStyle, onClose, onStyleChange }: LayerPanelPro
               })}
             </div>
 
-            <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-100">
-              <span className="text-[10px] text-gray-400">Select map style</span>
+            <div className="mt-3 pt-3 border-t border-gray-100">
+              <span className="text-xs text-gray-400">Select map style</span>
             </div>
           </div>
         </motion.div>

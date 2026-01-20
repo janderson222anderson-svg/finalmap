@@ -522,30 +522,30 @@ const MapViewer = () => {
         className="relative h-full w-full bg-card"
       >
         {/* Map Header Bar */}
-        <div className="flex items-center justify-between px-2 sm:px-4 py-2 sm:py-3 bg-navy-deep border-b border-white/10 absolute top-0 left-0 right-0 z-20">
+        <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 bg-navy-deep border-b border-white/10 absolute top-0 left-0 right-0 z-20">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="flex gap-1 sm:gap-1.5">
               <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-destructive" />
               <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gold" />
               <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-primary" />
             </div>
-            <span className="text-white/80 text-xs sm:text-sm font-medium">NPMI Navigator - Islamabad</span>
+            <span className="text-white/80 text-xs sm:text-sm font-medium truncate">NPMI Navigator</span>
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
             {isRoutingMode && (
-              <span className="text-xs text-primary bg-primary/20 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
+              <span className="text-xs text-primary bg-primary/20 px-2 py-1 rounded-full">
                 Routing
               </span>
             )}
             <span className="text-xs text-white/50 hidden sm:block">
               Zoom: {zoom.toFixed(1)}x
             </span>
-            <Crosshair className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/50" />
+            <Crosshair className="w-4 h-4 text-white/50" />
           </div>
         </div>
 
         {/* Map Content */}
-        <div className="relative h-full pt-12 sm:pt-16">
+        <div className="relative h-full pt-14 sm:pt-16">
           {/* MapLibre Map */}
           <div ref={mapContainer} className="absolute inset-0" />
 
@@ -690,8 +690,8 @@ const MapViewer = () => {
           )}
 
           {/* Coordinates Display */}
-          <div className="absolute bottom-16 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 px-2">
-            <div className="bg-white/95 backdrop-blur-sm rounded-lg px-2 sm:px-4 py-1.5 sm:py-2 shadow-lg border border-gray-200">
+          <div className="absolute bottom-20 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 px-2">
+            <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 sm:px-4 py-2 shadow-lg border border-gray-200">
               <span className="text-xs text-gray-600 font-mono">
                 {coordinates.lat.toFixed(4)}° N, {coordinates.lng.toFixed(4)}° E
               </span>
@@ -730,9 +730,19 @@ const MapViewer = () => {
             font-size: 14px !important;
           }
           .maplibregl-popup-close-button {
-            width: 24px !important;
-            height: 24px !important;
-            font-size: 18px !important;
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 20px !important;
+          }
+          /* Improve touch targets on mobile */
+          .maplibregl-ctrl-group button {
+            width: 44px !important;
+            height: 44px !important;
+          }
+          /* Better spacing for mobile panels */
+          .routing-panel {
+            margin: 0.5rem !important;
+            max-width: calc(100vw - 1rem) !important;
           }
         }
         /* Prevent zoom on double tap for iOS */
@@ -748,6 +758,15 @@ const MapViewer = () => {
           button {
             min-height: 48px;
             min-width: 48px;
+          }
+          /* Mobile-specific input styling */
+          input[type="text"], input[type="search"] {
+            font-size: 16px !important; /* Prevents zoom on iOS */
+          }
+          /* Better mobile panel sizing */
+          .mobile-panel {
+            max-height: calc(100vh - 8rem) !important;
+            max-width: calc(100vw - 1rem) !important;
           }
         }
         *:fullscreen {

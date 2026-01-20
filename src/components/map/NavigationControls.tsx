@@ -50,35 +50,35 @@ const NavigationControls = ({
         <div className="flex items-center gap-2 p-2 bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200">
           <button
             onClick={onToggleRouting}
-            className={`p-2.5 rounded-xl transition-all touch-manipulation ${
+            className={`p-3 rounded-xl transition-all touch-manipulation min-h-[52px] min-w-[52px] flex items-center justify-center ${
               isRoutingMode 
                 ? "bg-primary text-white" 
                 : "hover:bg-gray-100"
             }`}
             title="Route"
           >
-            <Route className="w-5 h-5" />
+            <Route className="w-6 h-6" />
           </button>
           
           <button
             onClick={onLocateUser}
             disabled={isLocating || isTracking}
-            className={`p-2.5 rounded-xl transition-all touch-manipulation ${
+            className={`p-3 rounded-xl transition-all touch-manipulation min-h-[52px] min-w-[52px] flex items-center justify-center ${
               isLocating ? "bg-blue-50" : isTracking ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"
             }`}
             title="My Location"
           >
             {isLocating ? (
-              <Loader2 className="w-5 h-5 text-blue-500 animate-spin" />
+              <Loader2 className="w-6 h-6 text-blue-500 animate-spin" />
             ) : (
-              <Navigation className="w-5 h-5" />
+              <Navigation className="w-6 h-6" />
             )}
           </button>
 
           <button
             onClick={onToggleTraffic}
             disabled={trafficLoading}
-            className={`p-2.5 rounded-xl transition-all touch-manipulation ${
+            className={`p-3 rounded-xl transition-all touch-manipulation min-h-[52px] min-w-[52px] flex items-center justify-center ${
               showTrafficLayer 
                 ? "bg-amber-500 text-white" 
                 : "hover:bg-gray-100"
@@ -86,15 +86,15 @@ const NavigationControls = ({
             title="Traffic"
           >
             {trafficLoading ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
+              <Loader2 className="w-6 h-6 animate-spin" />
             ) : (
-              <Activity className="w-5 h-5" />
+              <Activity className="w-6 h-6" />
             )}
           </button>
 
           <button
             onClick={onTogglePOI}
-            className={`p-2.5 rounded-xl transition-all touch-manipulation ${
+            className={`p-3 rounded-xl transition-all touch-manipulation min-h-[52px] min-w-[52px] flex items-center justify-center ${
               showPOIPanel || isLoadingPOIs
                 ? "bg-purple-500 text-white" 
                 : "hover:bg-gray-100"
@@ -102,22 +102,22 @@ const NavigationControls = ({
             title="POI"
           >
             {isLoadingPOIs ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
+              <Loader2 className="w-6 h-6 animate-spin" />
             ) : (
-              <MapPin className="w-5 h-5" />
+              <MapPin className="w-6 h-6" />
             )}
           </button>
 
           <button
             onClick={onToggleLayerPanel}
-            className={`p-2.5 rounded-xl transition-all touch-manipulation ${
+            className={`p-3 rounded-xl transition-all touch-manipulation min-h-[52px] min-w-[52px] flex items-center justify-center ${
               showLayerPanel 
                 ? "bg-primary text-white" 
                 : "hover:bg-gray-100"
             }`}
             title="Layers"
           >
-            <Layers className="w-5 h-5" />
+            <Layers className="w-6 h-6" />
           </button>
         </div>
       </div>
