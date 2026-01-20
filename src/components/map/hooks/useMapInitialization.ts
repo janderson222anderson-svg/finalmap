@@ -30,11 +30,15 @@ export const useMapInitialization = ({
     map.current = new maplibregl.Map({
       container: mapContainer.current,
       style: mapStyles[activeStyle].url,
-      center: [69.3451, 30.3753],
-      zoom: 5,
+      center: [73.0479, 33.6844], // Islamabad coordinates
+      zoom: 14, // Higher zoom for detailed view
       pitch: 0,
       bearing: 0,
       attributionControl: false,
+      touchZoomRotate: true,
+      touchPitch: false,
+      dragRotate: false,
+      keyboard: false,
     });
 
     map.current.addControl(

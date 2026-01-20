@@ -136,38 +136,40 @@ const RoutingPanel = ({
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -300, opacity: 0 }}
           transition={{ type: "spring", damping: 25 }}
-          className="absolute left-4 top-4 w-72 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 overflow-hidden z-20"
+          className="absolute left-1 sm:left-4 top-1 sm:top-4 w-64 sm:w-72 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 z-20 max-h-[calc(100vh-4rem)] sm:max-h-[calc(100vh-8rem)] overflow-y-auto"
         >
           {/* Panel Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-primary text-white">
-            <div className="flex items-center gap-2">
-              <Route className="w-5 h-5" />
-              <span className="font-semibold">Route Planner</span>
+          <div className="sticky top-0 z-10 flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 bg-primary text-white rounded-t-xl">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <Route className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="font-semibold text-sm sm:text-base">Route Planner</span>
             </div>
             <button
               onClick={onClose}
-              className="p-1 hover:bg-white/20 rounded transition-colors"
+              className="p-1 sm:p-1.5 hover:bg-white/20 rounded-lg transition-colors group"
+              title="Close"
+              aria-label="Close routing panel"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
             </button>
           </div>
 
           {/* Travel Mode Selector */}
-          <div className="p-3 border-b border-gray-100">
-            <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+          <div className="p-2 sm:p-3 border-b border-gray-100">
+            <div className="flex gap-0.5 sm:gap-1 bg-gray-100 rounded-lg p-0.5 sm:p-1">
               {(Object.keys(travelModes) as TravelMode[]).map((mode) => {
                 const Icon = travelModes[mode].icon;
                 return (
                   <button
                     key={mode}
                     onClick={() => onTravelModeChange(mode)}
-                    className={`flex-1 flex items-center justify-center gap-1 py-2 rounded-md text-xs font-medium transition-all ${
+                    className={`flex-1 flex items-center justify-center gap-1 py-1.5 sm:py-2 rounded-md text-xs font-medium transition-all ${
                       travelMode === mode
                         ? "bg-white shadow text-primary"
                         : "text-gray-600 hover:text-gray-900"
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     <span className="hidden sm:inline">{travelModes[mode].name}</span>
                   </button>
                 );
@@ -176,10 +178,10 @@ const RoutingPanel = ({
           </div>
 
           {/* Route Points */}
-          <div className="p-3 space-y-3">
+          <div className="p-2 sm:p-3 space-y-2 sm:space-y-3">
             {/* Start Point */}
             <div 
-              className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
+              className={`flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg border-2 transition-all cursor-pointer ${
                 selectingPoint === "start" 
                   ? "border-emerald-500 bg-emerald-50" 
                   : startPoint 
@@ -188,12 +190,12 @@ const RoutingPanel = ({
               }`}
               onClick={() => !startPoint && onSetStartPoint()}
             >
-              <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm">
                 A
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-xs text-gray-500">Start Point</div>
-                <div className="text-sm font-medium truncate">
+                <div className="text-xs sm:text-sm font-medium truncate">
                   {startPoint?.name || (selectingPoint === "start" ? "Click on map..." : "Select start")}
                 </div>
               </div>
@@ -205,19 +207,19 @@ const RoutingPanel = ({
                   }}
                   className="p-1 hover:bg-gray-200 rounded"
                 >
-                  <X className="w-4 h-4 text-gray-400" />
+                  <X className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" />
                 </button>
               )}
             </div>
 
             {/* Connector Line */}
             <div className="flex justify-center">
-              <div className="w-0.5 h-4 bg-gray-300" />
+              <div className="w-0.5 h-3 sm:h-4 bg-gray-300" />
             </div>
 
             {/* End Point */}
             <div 
-              className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
+              className={`flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg border-2 transition-all cursor-pointer ${
                 selectingPoint === "end" 
                   ? "border-red-500 bg-red-50" 
                   : endPoint 
@@ -226,12 +228,12 @@ const RoutingPanel = ({
               }`}
               onClick={() => startPoint && !endPoint && onSetEndPoint()}
             >
-              <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm">
                 B
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-xs text-gray-500">End Point</div>
-                <div className="text-sm font-medium truncate">
+                <div className="text-xs sm:text-sm font-medium truncate">
                   {endPoint?.name || (selectingPoint === "end" ? "Click on map..." : "Select destination")}
                 </div>
               </div>
@@ -243,7 +245,7 @@ const RoutingPanel = ({
                   }}
                   className="p-1 hover:bg-gray-200 rounded"
                 >
-                  <X className="w-4 h-4 text-gray-400" />
+                  <X className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" />
                 </button>
               )}
             </div>
@@ -274,26 +276,26 @@ const RoutingPanel = ({
                     )}
 
                     {/* Distance & ETA */}
-                    <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50">
-                      <div className="grid grid-cols-2 gap-4 mb-3">
-                        <div className="flex items-center gap-2">
-                          <div className="p-2 bg-blue-100 rounded-lg">
-                            <Ruler className="w-5 h-5 text-blue-600" />
+                    <div className="p-2 sm:p-4 bg-gradient-to-r from-blue-50 to-indigo-50">
+                      <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-2 sm:mb-3">
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <div className="p-1.5 sm:p-2 bg-blue-100 rounded-lg">
+                            <Ruler className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                           </div>
                           <div>
                             <div className="text-xs text-gray-500">Distance</div>
-                            <div className="text-lg font-bold text-gray-900">
+                            <div className="text-sm sm:text-lg font-bold text-gray-900">
                               {formatDistance(routeInfo.distance)}
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <div className="p-2 bg-green-100 rounded-lg">
-                            <Clock className="w-5 h-5 text-green-600" />
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <div className="p-1.5 sm:p-2 bg-green-100 rounded-lg">
+                            <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                           </div>
                           <div>
                             <div className="text-xs text-gray-500">ETA</div>
-                            <div className="text-lg font-bold text-gray-900">
+                            <div className="text-sm sm:text-lg font-bold text-gray-900">
                               {formatDuration(routeInfo.duration)}
                             </div>
                           </div>
@@ -301,52 +303,52 @@ const RoutingPanel = ({
                       </div>
                       
                       {/* Voice & Steps Controls */}
-                      <div className="flex gap-2 mb-2">
+                      <div className="flex gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
                         <button
                           onClick={onToggleVoice}
-                          className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all ${
+                          className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                             voiceEnabled 
                               ? "bg-primary text-white" 
                               : "bg-gray-200 text-gray-600"
                           }`}
                         >
-                          {voiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                          {voiceEnabled ? <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                           Voice
                         </button>
                         <button
                           onClick={onToggleSteps}
-                          className="flex-1 flex items-center justify-center gap-2 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium text-gray-700 transition-all"
+                          className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs sm:text-sm font-medium text-gray-700 transition-all"
                         >
-                          <List className="w-4 h-4" />
+                          <List className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                           {routeInfo.steps.length} Steps
-                          {showSteps ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                          {showSteps ? <ChevronUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                         </button>
                       </div>
 
                       {/* Elevation & Weather Buttons */}
-                      <div className="flex gap-2 mb-2">
+                      <div className="flex gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
                         <button
                           onClick={onToggleElevation}
                           disabled={isLoadingElevation}
-                          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                          className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                             showElevationProfile 
                               ? "bg-emerald-500 text-white" 
                               : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                           }`}
                         >
-                          {isLoadingElevation ? <Loader2 className="w-4 h-4 animate-spin" /> : <TrendingUp className="w-4 h-4" />}
+                          {isLoadingElevation ? <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" /> : <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                           Elevation
                         </button>
                         <button
                           onClick={onToggleWeather}
                           disabled={isLoadingWeather}
-                          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                          className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                             showWeatherOverlay 
-                              ? "bg-sky-500 text-white" 
-                              : "bg-sky-50 text-sky-700 hover:bg-sky-100"
+                              ? "bg-emerald-500 text-white" 
+                              : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                           }`}
                         >
-                          {isLoadingWeather ? <Loader2 className="w-4 h-4 animate-spin" /> : <CloudSun className="w-4 h-4" />}
+                          {isLoadingWeather ? <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" /> : <CloudSun className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                           Weather
                         </button>
                       </div>
@@ -355,9 +357,9 @@ const RoutingPanel = ({
                       {onSaveRoute && (
                         <button
                           onClick={onSaveRoute}
-                          className="w-full flex items-center justify-center gap-2 py-2.5 bg-purple-50 text-purple-700 hover:bg-purple-100 rounded-lg text-sm font-medium transition-all"
+                          className="w-full flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2.5 bg-purple-50 text-purple-700 hover:bg-purple-100 rounded-lg text-xs sm:text-sm font-medium transition-all"
                         >
-                          <Save className="w-4 h-4" />
+                          <Save className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                           Save Route
                         </button>
                       )}
@@ -370,7 +372,7 @@ const RoutingPanel = ({
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          className="max-h-64 overflow-y-auto border-t border-gray-100"
+                          className="max-h-48 sm:max-h-64 overflow-y-auto border-t border-gray-100"
                         >
                           {routeInfo.steps.map((step, index) => {
                             const StepIcon = getManeuverIcon(step.maneuver.type, step.maneuver.modifier);
@@ -380,27 +382,27 @@ const RoutingPanel = ({
                               <button
                                 key={index}
                                 onClick={() => onGoToStep(index, step)}
-                                className={`w-full flex items-start gap-3 p-3 text-left hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-b-0 ${
+                                className={`w-full flex items-start gap-2 sm:gap-3 p-2 sm:p-3 text-left hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-b-0 ${
                                   isActive ? "bg-blue-50" : ""
                                 }`}
                               >
-                                <div className={`p-2 rounded-lg flex-shrink-0 ${
+                                <div className={`p-1.5 sm:p-2 rounded-lg flex-shrink-0 ${
                                   isActive ? "bg-primary text-white" : "bg-gray-100 text-gray-600"
                                 }`}>
-                                  <StepIcon className="w-4 h-4" />
+                                  <StepIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <div className={`text-sm font-medium ${isActive ? "text-primary" : "text-gray-900"}`}>
+                                  <div className={`text-xs sm:text-sm font-medium ${isActive ? "text-primary" : "text-gray-900"}`}>
                                     {step.instruction}
                                   </div>
-                                  <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
+                                  <div className="flex items-center gap-2 mt-0.5 sm:mt-1 text-xs text-gray-500">
                                     <span>{formatDistance(step.distance)}</span>
                                     <span>•</span>
                                     <span>{formatDuration(step.duration)}</span>
                                   </div>
                                 </div>
                                 {isActive && voiceEnabled && (
-                                  <Volume2 className="w-4 h-4 text-primary flex-shrink-0 animate-pulse" />
+                                  <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 animate-pulse" />
                                 )}
                               </button>
                             );
@@ -416,21 +418,21 @@ const RoutingPanel = ({
 
           {/* Clear Button */}
           {(startPoint || endPoint) && (
-            <div className="p-3 border-t border-gray-100">
-              <div className="flex gap-2">
+            <div className="sticky bottom-0 z-10 p-2 sm:p-3 border-t border-gray-100 bg-white/95 backdrop-blur-sm">
+              <div className="flex gap-1.5 sm:gap-2">
                 <button
                   onClick={onClearRoute}
-                  className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
                 >
-                  <RotateCcw className="w-4 h-4" />
+                  <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   Clear Route
                 </button>
                 {onLoadRoute && (
                   <button
                     onClick={() => setShowSavedRoutes(!showSavedRoutes)}
-                    className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-medium text-purple-600 hover:text-purple-900 hover:bg-purple-50 rounded-lg transition-colors"
+                    className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-purple-600 hover:text-purple-900 hover:bg-purple-50 rounded-lg transition-colors"
                   >
-                    <Bookmark className="w-4 h-4" />
+                    <Bookmark className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     {showSavedRoutes ? "Hide" : "Saved"}
                   </button>
                 )}
@@ -447,7 +449,7 @@ const RoutingPanel = ({
                 exit={{ height: 0, opacity: 0 }}
                 className="border-t border-gray-100 overflow-hidden"
               >
-                <div className="p-3">
+                <div className="p-2 sm:p-3">
                   <SavedRoutes onLoadRoute={onLoadRoute} />
                 </div>
               </motion.div>

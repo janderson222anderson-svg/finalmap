@@ -94,10 +94,10 @@ const SearchBar = ({ isRoutingMode, selectingPoint, onSelectResult }: SearchBarP
   }, []);
 
   return (
-    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 w-full max-w-md px-4">
+    <div className="absolute top-2 sm:top-4 left-1/2 -translate-x-1/2 z-30 w-full max-w-xs sm:max-w-md px-2 sm:px-4">
       <div className="relative">
         <div className="relative flex items-center">
-          <Search className="absolute left-3 w-5 h-5 text-gray-400 pointer-events-none" />
+          <Search className="absolute left-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400 pointer-events-none" />
           <input
             ref={searchInputRef}
             type="text"
@@ -106,12 +106,12 @@ const SearchBar = ({ isRoutingMode, selectingPoint, onSelectResult }: SearchBarP
             onFocus={() => searchResults.length > 0 && setShowSearchResults(true)}
             placeholder={isRoutingMode && selectingPoint 
               ? `Search for ${selectingPoint === 'start' ? 'start' : 'destination'} point...`
-              : "Search places, roads, landmarks in Pakistan..."
+              : "Search places in Islamabad..."
             }
-            className="w-full pl-10 pr-10 py-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary placeholder:text-gray-400"
+            className="w-full pl-9 sm:pl-10 pr-9 sm:pr-10 py-2.5 sm:py-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary placeholder:text-gray-400 touch-manipulation"
           />
           {isSearching && (
-            <Loader2 className="absolute right-3 w-5 h-5 text-primary animate-spin" />
+            <Loader2 className="absolute right-3 w-4 h-4 sm:w-5 sm:h-5 text-primary animate-spin" />
           )}
           {!isSearching && searchQuery && (
             <button
@@ -120,7 +120,7 @@ const SearchBar = ({ isRoutingMode, selectingPoint, onSelectResult }: SearchBarP
                 setSearchResults([]);
                 setShowSearchResults(false);
               }}
-              className="absolute right-3 p-0.5 hover:bg-gray-100 rounded"
+              className="absolute right-3 p-0.5 hover:bg-gray-100 rounded touch-manipulation"
             >
               <X className="w-4 h-4 text-gray-400" />
             </button>
@@ -137,6 +137,16 @@ const SearchBar = ({ isRoutingMode, selectingPoint, onSelectResult }: SearchBarP
               exit={{ opacity: 0, y: -10 }}
               className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 overflow-hidden"
             >
+              <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100">
+                <span className="text-xs font-medium text-gray-600">Searching...</span>
+                <button
+                  onClick={() => setShowSearchResults(false)}
+                  className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                  title="Close"
+                >
+                  <X className="w-4 h-4 text-gray-400" />
+                </button>
+              </div>
               <LoadingSkeleton type="search" />
             </motion.div>
           )}
@@ -146,18 +156,32 @@ const SearchBar = ({ isRoutingMode, selectingPoint, onSelectResult }: SearchBarP
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 overflow-hidden max-h-80 overflow-y-auto"
+              className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 overflow-hidden max-h-60 sm:max-h-80 overflow-y-auto"
             >
+              <div className="sticky top-0 z-10 flex items-center justify-between px-3 py-2 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+                <span className="text-xs font-medium text-gray-600">{searchResults.length} results</span>
+                <button
+                  onClick={() => {
+                    setShowSearchResults(false);
+                    setSearchQuery("");
+                    setSearchResults([]);
+                  }}
+                  className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                  title="Close"
+                >
+                  <X className="w-4 h-4 text-gray-400" />
+                </button>
+              </div>
               {searchResults.map((result) => {
                 const PlaceIcon = getPlaceIcon(result.type, result.class);
                 return (
                   <button
                     key={result.place_id}
                     onClick={() => handleSelectResult(result)}
-                    className="w-full flex items-start gap-3 p-3 hover:bg-gray-50 transition-colors text-left border-b border-gray-100 last:border-b-0"
+                    className="w-full flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 hover:bg-gray-50 transition-colors text-left border-b border-gray-100 last:border-b-0 touch-manipulation"
                   >
-                    <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0">
-                      <PlaceIcon className="w-4 h-4 text-primary" />
+                    <div className="p-1.5 sm:p-2 bg-primary/10 rounded-lg flex-shrink-0">
+                      <PlaceIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-gray-900 truncate">
@@ -171,12 +195,12 @@ const SearchBar = ({ isRoutingMode, selectingPoint, onSelectResult }: SearchBarP
                       </div>
                     </div>
                     {isRoutingMode && selectingPoint && (
-                      <div className={`px-2 py-1 text-xs font-medium rounded ${
+                      <div className={`px-1.5 sm:px-2 py-0.5 sm:py-1 text-xs font-medium rounded ${
                         selectingPoint === 'start' 
                           ? 'bg-emerald-100 text-emerald-700' 
                           : 'bg-red-100 text-red-700'
                       }`}>
-                        Set as {selectingPoint === 'start' ? 'A' : 'B'}
+                        {selectingPoint === 'start' ? 'A' : 'B'}
                       </div>
                     )}
                   </button>
@@ -193,11 +217,26 @@ const SearchBar = ({ isRoutingMode, selectingPoint, onSelectResult }: SearchBarP
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 p-4 text-center"
+              className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 overflow-hidden"
             >
-              <MapPinned className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">No places found for "{searchQuery}"</p>
-              <p className="text-xs text-gray-400 mt-1">Try a different search term</p>
+              <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100">
+                <span className="text-xs font-medium text-gray-600">No results</span>
+                <button
+                  onClick={() => {
+                    setShowSearchResults(false);
+                    setSearchQuery("");
+                  }}
+                  className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                  title="Close"
+                >
+                  <X className="w-4 h-4 text-gray-400" />
+                </button>
+              </div>
+              <div className="p-4 text-center">
+                <MapPinned className="w-8 h-8 text-gray-300 mx-auto mb-2" />
+                <p className="text-sm text-gray-500">No places found for "{searchQuery}"</p>
+                <p className="text-xs text-gray-400 mt-1">Try a different search term</p>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
