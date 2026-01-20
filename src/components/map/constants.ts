@@ -8,7 +8,7 @@ export const mapStyles: Record<MapStyle, { name: string; url: string }> = {
   },
   satellite: {
     name: "Satellite",
-    url: "https://api.maptiler.com/maps/hybrid/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL",
+    url: `https://api.maptiler.com/maps/hybrid/style.json?key=${import.meta.env.VITE_MAPTILER_API_KEY || 't1KO1Ff9uT62NNBMV2G2'}`,
   },
   terrain: {
     name: "Terrain",
